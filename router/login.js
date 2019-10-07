@@ -16,16 +16,12 @@ router.post('/', async (ctx) => {
   adminData = JSON.parse(adminData.toString());
   const adminInfo = adminData.filter((item) => item.username === username)[0] || {};
 
-  let res = {};
-
   if (!adminInfo.username) {
-    res = { state: false, msg: 'username err' };
-    ctx.body = JSON.stringify(res);
+    ctx.body = { state: false, msg: 'username err' };;
   } else if (util.sha512(password) !== adminInfo.password) {
-    res = { state: false, msg: 'password err' };
-    ctx.body = JSON.stringify(res);
+    ctx.body = { state: false, msg: 'password err' };
   } else {
-    ctx.body = JSON.stringify({ state: true, username });
+    ctx.body = { state: true, msg: 'success', name: username };
   }
 
 })
